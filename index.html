@@ -1,0 +1,656 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosotros ❤️</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background:
+            radial-gradient(circle at 20% 20%, rgba(155, 89, 255, .25), transparent 30%),
+            radial-gradient(circle at 80% 80%, rgba(255, 92, 190, .18), transparent 30%),
+            #0d0715;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    /* ESTRELLAS */
+    .stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: white;
+        border-radius: 50%;
+        opacity: .7;
+        animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+        0%, 100% {
+            opacity: .2;
+            transform: scale(.7);
+        }
+
+        50% {
+            opacity: 1;
+            transform: scale(1.3);
+        }
+    }
+
+    /* CORAZONES */
+    .heart {
+        position: fixed;
+        bottom: -30px;
+        font-size: 18px;
+        opacity: .6;
+        animation: floatHeart 7s linear infinite;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    @keyframes floatHeart {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+
+        15% {
+            opacity: .7;
+        }
+
+        100% {
+            transform: translateY(-110vh) rotate(25deg);
+            opacity: 0;
+        }
+    }
+
+    /* CONTENEDOR */
+    .container {
+        position: relative;
+        z-index: 2;
+        width: min(900px, 92%);
+        text-align: center;
+        padding: 45px 25px;
+        border: 1px solid rgba(255,255,255,.12);
+        border-radius: 30px;
+        background: rgba(255,255,255,.055);
+        backdrop-filter: blur(20px);
+        box-shadow:
+            0 0 80px rgba(155, 89, 255, .15),
+            inset 0 0 40px rgba(255,255,255,.02);
+    }
+
+    .small-title {
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #cba8ff;
+        margin-bottom: 18px;
+    }
+
+    h1 {
+        font-size: clamp(38px, 8vw, 75px);
+        line-height: 1;
+        margin-bottom: 15px;
+        background: linear-gradient(90deg, #fff, #d7a8ff, #ff9bd7);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        color: #cfc5d8;
+        font-size: 17px;
+        margin-bottom: 40px;
+    }
+
+    /* CONTADOR */
+    .main-counter {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 35px;
+    }
+
+    .time-box {
+        width: 145px;
+        padding: 20px 10px;
+        border-radius: 20px;
+        background: rgba(255,255,255,.07);
+        border: 1px solid rgba(255,255,255,.09);
+        transition: .3s;
+    }
+
+    .time-box:hover {
+        transform: translateY(-5px);
+        background: rgba(180, 100, 255, .12);
+        box-shadow: 0 10px 30px rgba(155, 89, 255, .15);
+    }
+
+    .number {
+        display: block;
+        font-size: 42px;
+        font-weight: 700;
+        color: white;
+    }
+
+    .label {
+        display: block;
+        margin-top: 5px;
+        color: #bcaec8;
+        font-size: 12px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    /* SEGUNDO CONTADOR */
+    .total {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        margin-bottom: 40px;
+    }
+
+    .total-item {
+        color: #aaa0b5;
+        font-size: 14px;
+    }
+
+    .total-item strong {
+        display: block;
+        color: #e4c9ff;
+        font-size: 20px;
+        margin-bottom: 3px;
+    }
+
+    /* FRASE */
+    .message {
+        border-top: 1px solid rgba(255,255,255,.1);
+        padding-top: 30px;
+        color: #ddd4e2;
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+    .message .heart-icon {
+        font-size: 28px;
+        display: block;
+        margin-bottom: 10px;
+        animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% {
+            transform: scale(1);
+        }
+
+        15% {
+            transform: scale(1.18);
+        }
+
+        30% {
+            transform: scale(1);
+        }
+
+        45% {
+            transform: scale(1.12);
+        }
+    }
+
+    /* MODO 5 MESES */
+    .five-months {
+        display: none;
+        animation: appear 1.5s ease;
+    }
+
+    .five-months h2 {
+        font-size: clamp(35px, 7vw, 60px);
+        background: linear-gradient(90deg, #ffb3e6, #c89cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 15px;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0;
+            transform: scale(.9);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+        .container {
+            padding: 35px 15px;
+            border-radius: 25px;
+        }
+
+        .time-box {
+            width: 43%;
+            min-width: 125px;
+        }
+
+        .number {
+            font-size: 32px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+    <div class="small-title">
+        Nuestra historia
+    </div>
+
+    <h1>Nosotros ❤️</h1>
+
+    <p class="subtitle" id="subtitle">
+        Cada segundo contigo cuenta.
+    </p>
+
+    <!-- CONTADOR -->
+    <div id="counterSection">
+
+        <div class="main-counter">
+
+            <div class="time-box">
+                <span class="number" id="months">0</span>
+                <span class="label">Meses</span>
+            </div>
+
+            <div class="time-box">
+                <span class="number" id="days">0</span>
+                <span class="label">Días</span>
+            </div>
+
+            <div class="time-box">
+                <span class="number" id="hours">0</span>
+                <span class="label">Horas</span>
+            </div>
+
+            <div class="time-box">
+                <span class="number" id="minutes">0</span>
+                <span class="label">Minutos</span>
+            </div>
+
+            <div class="time-box">
+                <span class="number" id="seconds">0</span>
+                <span class="label">Segundos</span>
+            </div>
+
+        </div>
+
+        <div class="total">
+
+            <div class="total-item">
+                <strong id="totalDays">0</strong>
+                días juntos
+            </div>
+
+            <div class="total-item">
+                <strong id="totalHours">0</strong>
+                horas
+            </div>
+
+            <div class="total-item">
+                <strong id="totalMinutes">0</strong>
+                minutos
+            </div>
+
+            <div class="total-item">
+                <strong id="totalSeconds">0</strong>
+                segundos
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MENSAJE DE LOS 5 MESES -->
+    <div class="five-months" id="fiveMonths">
+
+        <h2>5 meses ❤️</h2>
+
+        <p class="subtitle">
+            Y esto solo acaba de empezar.
+        </p>
+
+    </div>
+
+    <div class="message">
+
+        <span class="heart-icon">♥</span>
+
+        <p>
+            No importa cuánto tiempo pase,
+            siempre voy a querer que el contador siga.
+        </p>
+
+        <p style="margin-top:10px;">
+            Porque mi parte favorita del tiempo
+            es compartirlo contigo.
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+    /*
+    =====================================================
+    CONFIGURACIÓN
+    =====================================================
+
+    CAMBIA ESTA FECHA POR LA FECHA REAL EN LA QUE EMPEZASTEIS.
+
+    Formato:
+    Año, mes - 1, día, hora, minutos
+
+    Ejemplo:
+    17 de mayo de 2026 a las 00:00
+    */
+
+    const startDate = new Date(
+        2026,
+        4,
+        17,
+        0,
+        0,
+        0
+    );
+
+    /*
+    =====================================================
+    FECHA DE LOS 5 MESES
+    =====================================================
+    */
+
+    const fiveMonthsDate = new Date(
+        2026,
+        9,
+        17,
+        0,
+        0,
+        0
+    );
+
+
+    function updateCounter() {
+
+        const now = new Date();
+
+        let difference = now - startDate;
+
+        if (difference < 0) {
+            difference = 0;
+        }
+
+        const second = 1000;
+        const minute = second * 60;
+        const hour = minute * 60;
+        const day = hour * 24;
+
+        /*
+        Calculamos meses completos.
+        */
+
+        let months =
+            (now.getFullYear() - startDate.getFullYear()) * 12 +
+            (now.getMonth() - startDate.getMonth());
+
+        if (
+            now.getDate() < startDate.getDate()
+        ) {
+            months--;
+        }
+
+        if (months < 0) {
+            months = 0;
+        }
+
+        /*
+        Días restantes después de los meses.
+        */
+
+        let reference = new Date(startDate);
+
+        reference.setMonth(
+            reference.getMonth() + months
+        );
+
+        let remaining = now - reference;
+
+        if (remaining < 0) {
+            remaining = 0;
+        }
+
+        const days = Math.floor(remaining / day);
+
+        remaining %= day;
+
+        const hours = Math.floor(remaining / hour);
+
+        remaining %= hour;
+
+        const minutes = Math.floor(remaining / minute);
+
+        remaining %= minute;
+
+        const seconds = Math.floor(remaining / second);
+
+
+        /*
+        MOSTRAR CONTADOR
+        */
+
+        document.getElementById("months").textContent =
+            months;
+
+        document.getElementById("days").textContent =
+            days;
+
+        document.getElementById("hours").textContent =
+            hours;
+
+        document.getElementById("minutes").textContent =
+            minutes;
+
+        document.getElementById("seconds").textContent =
+            seconds;
+
+
+        /*
+        TOTALES
+        */
+
+        const totalSeconds =
+            Math.floor(difference / 1000);
+
+        const totalMinutes =
+            Math.floor(totalSeconds / 60);
+
+        const totalHours =
+            Math.floor(totalMinutes / 60);
+
+        const totalDays =
+            Math.floor(totalHours / 24);
+
+
+        document.getElementById("totalSeconds").textContent =
+            totalSeconds.toLocaleString("es-ES");
+
+        document.getElementById("totalMinutes").textContent =
+            totalMinutes.toLocaleString("es-ES");
+
+        document.getElementById("totalHours").textContent =
+            totalHours.toLocaleString("es-ES");
+
+        document.getElementById("totalDays").textContent =
+            totalDays.toLocaleString("es-ES");
+
+
+        /*
+        DETECTAR LOS 5 MESES
+        */
+
+        if (now >= fiveMonthsDate) {
+
+            document.getElementById("subtitle").textContent =
+                "Hoy hacemos 5 meses ❤️";
+
+            document.getElementById("fiveMonths").style.display =
+                "block";
+
+        } else {
+
+            /*
+            CUENTA ATRÁS HASTA LOS 5 MESES
+            */
+
+            const countdown =
+                fiveMonthsDate - now;
+
+            const countdownDays =
+                Math.floor(countdown / day);
+
+            const countdownHours =
+                Math.floor(
+                    (countdown % day) / hour
+                );
+
+            const countdownMinutes =
+                Math.floor(
+                    (countdown % hour) / minute
+                );
+
+            const countdownSeconds =
+                Math.floor(
+                    (countdown % minute) / second
+                );
+
+            document.getElementById("subtitle").textContent =
+                `Faltan ${countdownDays} días, ` +
+                `${countdownHours} horas, ` +
+                `${countdownMinutes} minutos y ` +
+                `${countdownSeconds} segundos para nuestros 5 meses ❤️`;
+
+        }
+
+    }
+
+
+    /*
+    ACTUALIZAR CADA SEGUNDO
+    */
+
+    updateCounter();
+
+    setInterval(updateCounter, 1000);
+
+
+    /*
+    =====================================================
+    ESTRELLAS
+    =====================================================
+    */
+
+    const stars = document.getElementById("stars");
+
+    for (let i = 0; i < 100; i++) {
+
+        const star = document.createElement("div");
+
+        star.className = "star";
+
+        star.style.left =
+            Math.random() * 100 + "%";
+
+        star.style.top =
+            Math.random() * 100 + "%";
+
+        star.style.animationDelay =
+            Math.random() * 3 + "s";
+
+        star.style.animationDuration =
+            2 + Math.random() * 4 + "s";
+
+        stars.appendChild(star);
+    }
+
+
+    /*
+    =====================================================
+    CORAZONES FLOTANDO
+    =====================================================
+    */
+
+    function createHeart() {
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            Math.random() > .5 ? "♥" : "♡";
+
+        heart.style.left =
+            Math.random() * 100 + "%";
+
+        heart.style.animationDuration =
+            5 + Math.random() * 5 + "s";
+
+        heart.style.fontSize =
+            12 + Math.random() * 18 + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 10000);
+    }
+
+    setInterval(createHeart, 900);
+
+</script>
+
+</body>
+</html>
+```
